@@ -66,7 +66,7 @@ load32:
     call ata_lba_read
     jmp CODE_SEG:0x0100000
 
-ata_lba_read
+ata_lba_read:
     mov ebx, eax ; backup for lba
     ; send highest 8 bits of the lba to hard disk controller
     shr eax, 24
@@ -110,7 +110,7 @@ ata_lba_read
     push ecx
 
 ; checking if we need to read
-.try_again
+.try_again:
     mov dx, 0x1f7
     in al, dx
     test al, 8
