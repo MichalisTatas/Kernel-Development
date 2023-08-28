@@ -1,5 +1,7 @@
 #include "kernel.h"
-
+#include <stdint.h>
+#include <stddef.h>
+#include "idt/idt.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -43,7 +45,7 @@ void terminalPrintCharSequentially(char character, char colour)
     }
 }
 
-void terminalPrintString(char* str)
+void print(const char* str)
 {
     size_t len = strlen(str);
 
@@ -69,6 +71,9 @@ void kernel_main()
 {
 
     terminalInitialize();
-    terminalPrintString("Hello world");
+    print("Hello world");
+
+    //initialize interrupt descriptor table
+    idt_init();
 
 }
